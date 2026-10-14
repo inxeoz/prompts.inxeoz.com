@@ -1,0 +1,9 @@
+{{ define "main" }}
+<p class="kicker">tags &middot; {{ len $.Site.Taxonomies.tags }} total</p>
+<h1 class="page-title">{{ .Title }}</h1>
+<div class="taglist">
+{{ range $.Site.Taxonomies.tags.ByCount }}
+<a class="tagrow" href="{{ .Page.RelPermalink }}"><span>{{ .Page.Title }}</span><i>{{ .Count }}</i></a>
+{{ end }}
+</div>
+{{ end }}

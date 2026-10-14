@@ -1,0 +1,30 @@
+{{ define "main" }}
+{{ $prompts := where .Site.RegularPages "Section" "prompts" }}
+<section class="hero">
+<p class="kicker">image &rarr; style &middot; {{ len $prompts }} prompts &middot; {{ len $.Site.Taxonomies.tags }} tags</p>
+<h1>Photo in,<br>style out.</h1>
+<p class="lede">Attach a photo to your image model, paste a prompt. That's it.</p>
+<div class="controls">
+<input id="q" type="search" placeholder="fuzzy search: try &lsquo;gibli&rsquo;, &lsquo;oiel&rsquo;, &lsquo;pxar&rsquo;…" autocomplete="off" aria-label="Search prompts">
+</div>
+<div class="tagbar" role="group" aria-label="Filter by tag">
+{{ range $.Site.Taxonomies.tags.ByCount }}
+<button class="chip" data-tag="{{ .Name }}" aria-pressed="false">{{ .Name }} <i>{{ .Count }}</i></button>
+{{ end }}
+<button id="clear" hidden>clear</button>
+</div>
+<p class="resultline"><span id="count">{{ len $prompts }} shown</span></p>
+</section>
+<section id="grid" class="grid">
+{{ range $i, $p := $prompts }}
+<article class="card" data-search="{{ printf "%s %s %s %s" $p.Title $p.Description (delimit $p.Params.tags " ") $p.Params.prompt | lower | htmlEscape }}" data-tags="{{ delimit $p.Params.tags "," | lower }}">
+<p class="num">{{ printf "%02d" (add $i 1) }}</p>
+<a href="{{ $p.RelPermalink }}"><h2>{{ $p.Title }}</h2></a>
+<p class="card-desc">{{ $p.Description }}</p>
+<p class="tags">{{ range $p.Params.tags }}<a href="{{ "/tags/" }}{{ . | urlize }}/">{{ . }}</a>{{ end }}</p>
+<button data-copy="{{ $p.Params.prompt | htmlEscape }}">copy</button>
+</article>
+{{ end }}
+</section>
+<p id="empty" hidden>Nothing matches. Try fewer letters, or clear a tag.</p>
+{{ end }}

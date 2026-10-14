@@ -1,0 +1,16 @@
+{{ define "main" }}
+<p class="kicker">tag</p>
+<h1 class="page-title">#{{ .Title }}</h1>
+<p class="lede">{{ len .Pages }} prompt{{ if gt (len .Pages) 1 }}s{{ end }} tagged &ldquo;{{ .Title }}&rdquo;. <a href="/tags/">all tags</a> &middot; <a href="/">search all</a></p>
+<div class="grid">
+{{ range $i, $p := .Pages }}
+<article class="card" data-search="" data-tags="">
+<p class="num">{{ printf "%02d" (add $i 1) }}</p>
+<a href="{{ $p.RelPermalink }}"><h2>{{ $p.Title }}</h2></a>
+<p class="card-desc">{{ $p.Description }}</p>
+<p class="tags">{{ range $p.Params.tags }}<a href="{{ "/tags/" }}{{ . | urlize }}/">{{ . }}</a>{{ end }}</p>
+<button data-copy="{{ $p.Params.prompt | htmlEscape }}">copy</button>
+</article>
+{{ end }}
+</div>
+{{ end }}

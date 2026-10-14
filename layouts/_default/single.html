@@ -1,0 +1,20 @@
+{{ define "main" }}
+<article class="single">
+<p class="crumb"><a href="/prompts/">&larr; index</a></p>
+<h1>{{ .Title }}</h1>
+<p class="desc">{{ .Description }}</p>
+<p class="tags">{{ range .Params.tags }}<a href="{{ "/tags/" }}{{ . | urlize }}/">{{ . }}</a>{{ end }}</p>
+<div class="prompt-box">
+<pre id="prompt">{{ .Params.prompt }}</pre>
+<button data-copy="{{ .Params.prompt | htmlEscape }}">copy</button>
+</div>
+{{ with .Params.negative_prompt }}<h2 class="sub">Negative prompt</h2><div class="prompt-box"><pre>{{ . }}</pre></div>{{ end }}
+<div class="body">{{ .Content }}</div>
+{{ with .Params.tags }}
+<hr class="rule">
+<p class="more">More in:
+{{ range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ "/tags/" }}{{ $t | urlize }}/">{{ $t }}</a>{{ end }}
+</p>
+{{ end }}
+</article>
+{{ end }}

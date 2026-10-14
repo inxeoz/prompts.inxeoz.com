@@ -1,0 +1,16 @@
+baseURL = "https://prompts.inxeoz.com/"
+title = "prompts.inxeoz.com"
+description = "Copy-paste prompts for converting images into different styles."
+locale = "en-us"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[params]
+  description = "A fast listing of image-style prompts. Pick a style, copy, paste into your image model."
