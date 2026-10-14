@@ -78,9 +78,20 @@ main{max-width:68rem; margin:0 auto; padding:2rem 1.25rem 4rem}
   border:1px solid var(--line); margin-top:1rem;
 }
 .card{background:var(--card); padding:1rem 1.1rem 1.1rem; position:relative}
+.card-top{margin:0}
 .card .num{
   font-family:ui-monospace,Menlo,monospace; font-size:.75rem;
   color:var(--muted); margin:0;
+}
+.sort{
+  font-family:ui-monospace,Menlo,monospace; font-size:.8rem;
+  color:var(--muted); display:inline-flex; gap:.4rem; align-items:center;
+  margin-top:.6rem; cursor:pointer;
+}
+.sort input{accent-color:var(--ink)}
+.dates{
+  font-family:ui-monospace,Menlo,monospace; font-size:.78rem;
+  color:var(--muted); margin:.1rem 0 .5rem;
 }
 .card h2{font-size:1.15rem; margin:.25rem 0; letter-spacing:-0.01em}
 .card a{text-decoration:none}

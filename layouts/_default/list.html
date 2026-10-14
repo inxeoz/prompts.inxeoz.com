@@ -4,6 +4,7 @@
 {{ with .Content }}<div class="lede">{{ . }}</div>{{ end }}
 <div class="controls">
 <input id="q" type="search" placeholder="fuzzy search…" autocomplete="off" aria-label="Search prompts">
+<label class="sort"><input type="checkbox" id="sort-new"> newest first</label>
 </div>
 <div class="tagbar" role="group" aria-label="Filter by tag">
 {{ range $.Site.Taxonomies.tags.ByCount }}
@@ -13,9 +14,9 @@
 </div>
 <p class="resultline"><span id="count">{{ len .Pages }} shown</span></p>
 <div id="grid" class="grid">
-{{ range $i, $p := .Pages }}
-<article class="card" data-search="{{ printf "%s %s %s %s" $p.Title $p.Description (delimit $p.Params.tags " ") $p.Params.prompt | lower | htmlEscape }}" data-tags="{{ delimit $p.Params.tags "," | lower }}">
-<p class="num">{{ printf "%02d" (add $i 1) }}</p>
+{{ range $p := sort .Pages ".Lastmod" "desc" }}
+<article class="card" data-search="{{ printf "%s %s %s %s" $p.Title $p.Description (delimit $p.Params.tags " ") $p.Params.prompt | lower | htmlEscape }}" data-tags="{{ delimit $p.Params.tags "," | lower }}" data-date="{{ $p.Lastmod.Format "2006-01-02" }}">
+<p class="card-top"><span class="num">{{ $p.Lastmod.Format "Jan 2, 2006" }}</span></p>
 <a href="{{ $p.RelPermalink }}"><h2>{{ $p.Title }}</h2></a>
 <p class="card-desc">{{ $p.Description }}</p>
 <p class="tags">{{ range $p.Params.tags }}<a href="{{ "/tags/" }}{{ . | urlize }}/">{{ . }}</a>{{ end }}</p>

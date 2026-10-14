@@ -2,6 +2,7 @@ baseURL = "https://prompts.inxeoz.com/"
 title = "prompts.inxeoz.com"
 description = "Copy-paste prompts for converting images into different styles."
 locale = "en-us"
+enableGitInfo = true
 
 [taxonomies]
   category = "categories"
@@ -11,6 +12,12 @@ locale = "en-us"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+[frontmatter]
+  lastmod = ["lastmod", ":git", "date", ":fileModTime"]
+
+[sitemap]
+  changefreq = "weekly"
 
 [params]
   description = "A fast listing of image-style prompts. Pick a style, copy, paste into your image model."

@@ -74,6 +74,21 @@
     if(clear) clear.hidden=!activeTag&&!needle;
   }
   q.addEventListener('input',apply);
+  var sortNew=document.getElementById('sort-new');
+  if(sortNew) sortNew.addEventListener('change',function(){
+    var vis=cards.filter(function(c){return c.style.display!=='none'});
+    var hid=cards.filter(function(c){return c.style.display==='none'});
+    // cards carry data-date="YYYY-MM-DD" (Hugo sorts newest-first already);
+    // checkbox re-applies: newest-first on, original order off
+    var all=Array.prototype.slice.call(grid.querySelectorAll('.card'));
+    if(sortNew.checked){
+      all.sort(function(a,b){
+        return (b.getAttribute('data-date')||'').localeCompare(a.getAttribute('data-date')||'');
+      });
+      all.forEach(function(c){grid.appendChild(c)});
+    }
+    void vis; void hid;
+  });
   chips.forEach(function(ch){
     ch.addEventListener('click',function(){
       var t=ch.getAttribute('data-tag');
