@@ -147,3 +147,18 @@ footer{
   font-family:ui-monospace,Menlo,monospace; font-size:.78rem;
 }
 @media (min-width:700px){ .grid{grid-template-columns:repeat(3,1fr)} }
+
+.vartabs{display:flex; gap:.4rem; margin:1rem 0 .5rem; flex-wrap:wrap}
+.vartabs button{
+  font-family:ui-monospace,Menlo,monospace; font-size:.8rem;
+  background:var(--tag); color:var(--muted);
+  border:1px solid var(--line); border-radius:99px;
+  padding:.25rem .9rem; cursor:pointer;
+}
+.vartabs button[aria-selected="true"]{background:var(--chip-on); color:var(--chip-on-fg); border-color:var(--chip-on)}
+.varnote{color:var(--muted); font-size:.9rem; font-style:italic; margin:0 0 .6rem}
+.varbadge{
+  font-family:ui-monospace,Menlo,monospace; font-size:.68rem; font-weight:400;
+  background:var(--tag); color:var(--muted);
+  padding:.05rem .45rem; border-radius:99px; vertical-align:middle;
+}

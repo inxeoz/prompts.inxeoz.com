@@ -5,10 +5,25 @@
 <p class="desc">{{ .Description }}</p>
 <p class="dates">added {{ .Date.Format "Jan 2, 2006" }}{{ if ne (.Date.Format "2006-01-02") (.Lastmod.Format "2006-01-02") }} &middot; updated {{ .Lastmod.Format "Jan 2, 2006" }}{{ end }}</p>
 <p class="tags">{{ range .Params.tags }}<a href="{{ "/tags/" }}{{ . | urlize }}/">{{ . }}</a>{{ end }}</p>
+{{ if .Params.variations }}
+<div class="vartabs" role="tablist" aria-label="Prompt variations">
+<button type="button" role="tab" aria-selected="true" data-var="0">base</button>{{ range $i, $v := .Params.variations }}<button type="button" role="tab" aria-selected="false" data-var="{{ add $i 1 }}">{{ $v.name }}</button>{{ end }}
+</div>
+<div class="prompt-box" data-pane="0">
+<pre>{{ .Params.prompt }}</pre>
+<button data-copy="{{ .Params.prompt | htmlEscape }}">copy base</button>
+</div>{{ range $i, $v := .Params.variations }}
+<div class="prompt-box" data-pane="{{ add $i 1 }}" hidden>
+{{ with $v.note }}<p class="varnote">{{ . }}</p>{{ end }}
+<pre>{{ $v.prompt }}</pre>
+<button data-copy="{{ $v.prompt | htmlEscape }}">copy {{ $v.name }}</button>
+</div>{{ end }}
+{{ else }}
 <div class="prompt-box">
 <pre id="prompt">{{ .Params.prompt }}</pre>
 <button data-copy="{{ .Params.prompt | htmlEscape }}">copy</button>
 </div>
+{{ end }}
 {{ with .Params.negative_prompt }}<h2 class="sub">Negative prompt</h2><div class="prompt-box"><pre>{{ . }}</pre></div>{{ end }}
 <div class="body">{{ .Content }}</div>
 {{ with .Params.tags }}

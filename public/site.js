@@ -25,6 +25,19 @@
     }
     b.textContent='copied';setTimeout(function(){b.textContent=orig},1200);
   });
+  // ---- variation tabs (prompt pages have no #q, so wire first) ----
+  var vtabs=document.querySelectorAll('.vartabs [data-var]');
+  if(vtabs.length){
+    Array.prototype.forEach.call(vtabs,function(tab){
+      tab.addEventListener('click',function(){
+        var v=tab.getAttribute('data-var');
+        Array.prototype.forEach.call(vtabs,function(o){o.setAttribute('aria-selected',o===tab?'true':'false')});
+        Array.prototype.forEach.call(document.querySelectorAll('[data-pane]'),function(pn){
+          pn.hidden=pn.getAttribute('data-pane')!==v;
+        });
+      });
+    });
+  }
   // ---- fuzzy search + tag filter ----
   var q=document.getElementById('q');
   if(!q) return;
@@ -102,4 +115,5 @@
     chips.forEach(function(o){o.setAttribute('aria-pressed','false')});
     apply();
   });
+
 })();
